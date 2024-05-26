@@ -87,3 +87,187 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
         "token": "jwt_token"
     }
     ```
+
+### Product Routes
+
+#### Add a new product
+- **URL**: `/products/add`
+- **Method**: `POST`
+- **Body**:
+    ```json
+    {
+        "title": "Product Title",
+        "description": "Product Description",
+        "imageUrl": "http://example.com/image.jpg",
+        "category": "category_id",
+        "price": "100"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "message": "Product added",
+        "status": 200
+    }
+    ```
+
+#### List products
+- **URL**: `/products/list`
+- **Method**: `GET`
+- **Query Params**: `sort`, `category`, `minPrice`, `maxPrice`, `page`, `limit`
+- **Response**:
+    ```json
+    {
+        "message": "Products fetched",
+        "status": 200,
+        "data": [/* array of products */]
+    }
+    ```
+
+#### Get product details
+- **URL**: `/products/:id`
+- **Method**: `GET`
+- **Response**:
+    ```json
+    {
+        "message": "Product details fetched",
+        "status": 200,
+        "data": { /* product details with reviews and average rating */ }
+    }
+    ```
+
+### Category Routes
+
+#### Add a new category
+- **URL**: `/category/add`
+- **Method**: `POST`
+- **Body**:
+    ```json
+    {
+        "categoryName": "Category Name",
+        "imageUrl": "http://example.com/image.jpg"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "message": "Category added",
+        "status": 200
+    }
+    ```
+
+#### List categories
+- **URL**: `/category/list`
+- **Method**: `GET`
+- **Response**:
+    ```json
+    {
+        "message": "Category List",
+        "status": 200,
+        "data": [/* array of categories */]
+    }
+    ```
+
+### Review Routes
+
+#### Add a new review
+- **URL**: `/reviews/add`
+- **Method**: `POST`
+- **Body**:
+    ```json
+    {
+        "user": "user_id",
+        "product": "product_id",
+        "rating": 4,
+        "review": "Great product!"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "message": "Review added",
+        "status": 200
+    }
+    ```
+
+### Cart Routes
+
+#### Add an item to the cart
+- **URL**: `/cart/add`
+- **Method**: `POST`
+- **Body**:
+    ```json
+    {
+        "user": "user_id",
+        "productID": "product_id",
+        "quantity": 1
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "message": "Item added to cart",
+        "status": 200,
+        "data": { /* cart details */ }
+    }
+    ```
+
+#### Update cart item quantity
+- **URL**: `/cart/update`
+- **Method**: `POST`
+- **Body**:
+    ```json
+    {
+        "user": "user_id",
+        "productID": "product_id",
+        "quantity": 2
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "message": "Cart updated",
+        "status": 200,
+        "data": { /* updated cart details */ }
+    }
+    ```
+
+#### Delete an item from the cart
+- **URL**: `/cart/delete`
+- **Method**: `POST`
+- **Body**:
+    ```json
+    {
+        "user": "user_id",
+        "productID": "product_id"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+        "message": "Cart item deleted",
+        "status": 200
+    }
+    ```
+
+#### List cart items
+- **URL**: `/cart/list`
+- **Method**: `GET`
+- **Response**:
+    ```json
+    {
+        "message": "Cart items",
+        "status": 200,
+        "data": [/* array of cart items with product details */]
+    }
+    ```
+
+## Contributing
+
+We welcome contributions to improve the project. Please follow these steps:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add new feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Create a Pull Request.
