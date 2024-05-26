@@ -173,6 +173,12 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
 #### Add a new review
 - **URL**: `/reviews/add`
 - **Method**: `POST`
+-  **Headers**: 
+  ```json
+  {
+      "Authorization": "Bearer your_jwt_token"
+  }
+  ```
 - **Body**:
     ```json
     {
@@ -195,6 +201,12 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
 #### Add an item to the cart
 - **URL**: `/cart/add`
 - **Method**: `POST`
+-  **Headers**: 
+  ```json
+  {
+      "Authorization": "Bearer your_jwt_token"
+  }
+  ```
 - **Body**:
     ```json
     {
@@ -215,6 +227,12 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
 #### Update cart item quantity
 - **URL**: `/cart/update`
 - **Method**: `POST`
+-  **Headers**: 
+  ```json
+  {
+      "Authorization": "Bearer your_jwt_token"
+  }
+  ```
 - **Body**:
     ```json
     {
@@ -235,6 +253,12 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
 #### Delete an item from the cart
 - **URL**: `/cart/delete`
 - **Method**: `POST`
+-  **Headers**: 
+  ```json
+  {
+      "Authorization": "Bearer your_jwt_token"
+  }
+  ```
 - **Body**:
     ```json
     {
@@ -253,6 +277,12 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
 #### List cart items
 - **URL**: `/cart/list`
 - **Method**: `GET`
+- **Headers**: 
+  ```json
+  {
+      "Authorization": "Bearer your_jwt_token"
+  }
+  ```
 - **Response**:
     ```json
     {
