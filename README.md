@@ -228,11 +228,11 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
 - **URL**: `/cart/update`
 - **Method**: `POST`
 -  **Headers**: 
-  ```json
-  {
+    ```json
+    {
       "Authorization": "Bearer your_jwt_token"
-  }
-  ```
+    }
+    ```
 - **Body**:
     ```json
     {
@@ -254,11 +254,11 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
 - **URL**: `/cart/delete`
 - **Method**: `POST`
 -  **Headers**: 
-  ```json
-  {
+    ```json
+    {
       "Authorization": "Bearer your_jwt_token"
-  }
-  ```
+    }
+    ```
 - **Body**:
     ```json
     {
@@ -278,11 +278,11 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
 - **URL**: `/cart/list`
 - **Method**: `GET`
 - **Headers**: 
-  ```json
-  {
+    ```json
+    {
       "Authorization": "Bearer your_jwt_token"
-  }
-  ```
+    }
+    ```
 - **Response**:
     ```json
     {
