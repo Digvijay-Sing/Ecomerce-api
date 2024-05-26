@@ -51,7 +51,6 @@ router.post('/login', async (req, res) => {
           return res.status(500).send({message : "Invalid password" , status : 500})
         }
 
-        console.log(userFound);
 
         const token = jwt.sign({
             email : userFound.email,
