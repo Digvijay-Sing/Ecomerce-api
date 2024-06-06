@@ -28,84 +28,78 @@ router.post('/add', async (req, res) => {
 
 
 router.get('/list', async (req, res) => {
+    let { sort, category, minPrice, maxPrice } = req.query;
 
-    let {sort , category ,  minPrice , maxPrice} = req.query;
-
-    if(maxPrice){maxPrice = parseInt(maxPrice)}
-    if(minPrice){minPrice = parseInt(minPrice)}
+    if (maxPrice) { maxPrice = parseInt(maxPrice) }
+    if (minPrice) { minPrice = parseInt(minPrice) }
 
     const page = parseInt(req.query.page) || 1; // Current page, default is 1
     const pageSize = parseInt(req.query.limit) || 10; // Number of items per page, default is 10
     const skip = (page - 1) * pageSize;
 
     try {
-
-
+        const matchStage = category ? { category: new mongoose.Types.ObjectId(category) } : {};
+        if (minPrice) { matchStage.priceInt = { $gte: minPrice }; }
+        if (maxPrice) {
+            matchStage.priceInt = matchStage.priceInt || {};
+            matchStage.priceInt.$lte = maxPrice;
+        }
 
         const pipeline = [
+            { $match: matchStage },
             {
-               $match :  category ?  {category : new mongoose.Types.ObjectId(category)}  : {}
-            },
-            {
-                $lookup : {
-                    from : 'reviews',
-                    localField : '_id',
-                    foreignField : 'product',
-                     as : 'review'
+                $lookup: {
+                    from: 'reviews',
+                    localField: '_id',
+                    foreignField: 'product',
+                    as: 'review'
                 }
             },
             {
                 $addFields: {
-                    averageRating: { $ifNull: [
-                        { $avg: "$review.rating" },
-                        0
-                    ] },
+                    averageRating: { $ifNull: [{ $avg: "$review.rating" }, 0] },
                     priceInt: { $toInt: "$price" }
                 }
             },
             {
-                $match : minPrice ? {priceInt : {$gte : minPrice}} : {}
-            },
-            {
-                $match : maxPrice ? {priceInt : {$lte : maxPrice}} : {}
-            },
-            {
-                $project : {
-                    title : 1,
-                    description : 1,
-                    imageUrl : 1,
-                    price : 1,
-                    averageRating: 1,
+                $facet: {
+                    metadata: [{ $count: "total" }],
+                    data: [
+                        ...(sort ? [{ $sort: { priceInt: parseInt(sort) } }] : []),
+                        {
+                            $project: {
+                                title: 1,
+                                description: 1,
+                                imageUrl: 1,
+                                price: 1,
+                                averageRating: 1,
+                            }
+                        },
+                        { $skip: skip },
+                        { $limit: pageSize }
+                    ]
                 }
-                
-            },
-            {
-                $skip: skip,
-            },
-            {
-                $limit: pageSize,
             }
-        ]
+        ];
 
-        if (sort) {
-            const sortStage = {
-                $sort: { priceInt: parseInt(sort) }
-            };
-            pipeline.splice(3, 0, sortStage); // Add the $sort stage before $skip and $limit
-        }
+        const result = await productModel.aggregate(pipeline);
+        const productList = result[0].data;
+        const totalDocs = result[0].metadata[0] ? result[0].metadata[0].total : 0;
 
-
-        const productList = await productModel.aggregate(pipeline)
-
-
- return res.status(200).send({message : "Products fetched", status : 200 , data : productList})
-  
+        return res.status(200).send({
+            message: "Products fetched",
+            status: 200,
+            data: productList,
+            totalDocs: totalDocs,
+            currentPage: page,
+            totalPages: Math.ceil(totalDocs / pageSize)
+        });
 
     } catch (err) {
         console.log(err);
-        return res.status(500).send({message : err.message , status : 500})
+        return res.status(500).send({ message: err.message, status: 500 });
     }
-})
+});
 
 
 router.get('/:id' , async (req, res) => {

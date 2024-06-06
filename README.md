@@ -14,7 +14,7 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
     - [Review Routes](#review-routes)
     - [Cart Routes](#cart-routes)
   - [Contributing](#contributing)
-  - [License](#license)
+
 
 ## Installation
 
