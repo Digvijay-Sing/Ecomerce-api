@@ -11,6 +11,11 @@ const categoryRoutes = require('./routes/category');
 const reviewsRoutes = require('./routes/reviews');
 const cartRoutes = require('./routes/cart');
 
+// Function to serve all static files
+// inside public directory.
+app.use(express.static('public'));
+app.use('/images', express.static('images'));
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
