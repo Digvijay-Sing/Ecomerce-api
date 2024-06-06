@@ -114,7 +114,7 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It includes 
 #### List products
 - **URL**: `/products/list`
 - **Method**: `GET`
-- **Query Params**: `sort`, `category`, `minPrice`, `maxPrice`, `page`, `limit`
+- **Query Params**: `sort (-1 (desc) , 1 (asc))`, `category`, `minPrice`, `maxPrice`, `page`, `limit`
 - **Response**:
     ```json
     {
