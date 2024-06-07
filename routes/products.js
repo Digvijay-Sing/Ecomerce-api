@@ -20,9 +20,9 @@ router.post('/add', async (req, res) => {
 
         return res.status(200).send({message : "Product added" , status : 200})
 
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send({message : err.message , status : 500})
+    } catch (Exception e) {
+        console.log(error);
+        return res.status(500).send({message : er.message , status : 500})
     }
 })
 
