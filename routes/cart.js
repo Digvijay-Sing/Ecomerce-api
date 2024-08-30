@@ -56,7 +56,7 @@ router.post('/update' , authWithUser , async (req, res) => {
             return res.status(404).send({ message: 'Item not found in cart', status: 404 });
         }
 
-        item.quantity = quantity;
+        item.quantity = quantity;'
         await cart.save();
         return res.status(200).send({ message: 'Cart updated', status: 200, data: cart });
 
@@ -88,7 +88,7 @@ router.post('/delete' , authWithUser , async (req, res) => {
             return res.status(404).send({ message: 'Item not found in cart', status: 404 });
         }
 
-        cart.items.splice(itemIndex , 1)
+        cart.items.splice(itemIndex, 1)
 
         if(cart.items.length == 0){
             await cartModel.deleteOne({user : user})
